@@ -8,11 +8,48 @@
 @import url('./reset.css');
 @import url('./base.css');
 @import url('./container.css');
-@import url('./animations.css');
+
 
 /* Sections style */
 @import url('./header.css');
-@import url('./vite-promo.css');
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css');
+
+
+.gallery {
+  max-width: 1128px;
+  margin: 40px auto;
+  padding: 0;
+  list-style: none;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-link {
+  display: block;
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  transition: transform 250ms ease-in-out;
+}
+
+.gallery-image:hover {
+  transform: scale(1.04);
+  cursor: pointer;
+}
+
+
+
