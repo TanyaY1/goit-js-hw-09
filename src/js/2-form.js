@@ -1,36 +1,35 @@
-
 const formData = {
   email: "",
-  message: ""
+  message: "",
 };
 
 const STORAGE_KEY = "feedback-form-state";
 const form = document.querySelector(".feedback-form");
 
+// 🔹 Завантаження зі сховища
+const savedData = localStorage.getItem(STORAGE_KEY);
 
-function loadFormData() {
-  const savedData = localStorage.getItem(STORAGE_KEY);
-  if (savedData) {
-    const parsedData = JSON.parse(savedData);
+if (savedData) {
+  const parsedData = JSON.parse(savedData);
 
-    form.email.value = parsedData.email || "";
-    form.message.value = parsedData.message || "";
-    formData.email = parsedData.email || "";
-    formData.message = parsedData.message || "";
-  }
+  formData.email = parsedData.email || "";
+  formData.message = parsedData.message || "";
+
+  form.elements.email.value = formData.email;
+  form.elements.message.value = formData.message;
 }
 
-loadFormData();
-
-
-form.addEventListener("input", (event) => {
+// 🔹 input
+form.addEventListener("input", event => {
   const { name, value } = event.target;
-    formData[name] = value.trim(); 
-    
+  if (!name) return;
+
+  formData[name] = value.trim();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 });
 
-form.addEventListener("submit", (event) => {
+// 🔹 submit
+form.addEventListener("submit", event => {
   event.preventDefault();
 
   if (!formData.email || !formData.message) {
@@ -41,7 +40,8 @@ form.addEventListener("submit", (event) => {
   console.log(formData);
 
   localStorage.removeItem(STORAGE_KEY);
+  form.reset();
+
   formData.email = "";
   formData.message = "";
-  form.reset();
 });
